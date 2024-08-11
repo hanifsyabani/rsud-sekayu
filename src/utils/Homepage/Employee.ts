@@ -1,0 +1,22 @@
+export const InfoEmployee =[
+  {
+    id:1,
+    title:'Dokter',
+    count:'100',
+  },
+  {
+    id:2,
+    title:'Perawat',
+    count:'300',
+  },
+  {
+    id:3,
+    title:'Ambulan',
+    count:'10',
+  },
+  {
+    id:4,
+    title:'Aplikasi',
+    count:'5',
+  },
+]
