@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import rsudimg from "@/assets/rsud.png";
 import { FaUserDoctor, FaUserNurse } from "react-icons/fa6";
@@ -7,9 +9,15 @@ import { MisiRs } from "@/utils/Homepage/Misi";
 import banners from "@/assets/bannerrs.jpeg";
 
 import Pelayanan from "@/components/Pelayanan/Pelayanan";
+import HeaderHomepage from "@/components/Header/HeaderHomepage";
+import CardBerita from "@/components/Berita/CardBerita";
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/service/firebase";
 
 export default function Home() {
-  
+  const [news, setNews] = useState<any[]>([]);
+
   const renderIcon = (id: number) => {
     switch (id) {
       case 1:
@@ -43,7 +51,26 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    async function getData() {
+      const getNews = collection(db, "berita");
 
+      try {
+        const newsSnapshop = await getDocs(getNews);
+
+        const newslist= newsSnapshop.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setNews(newslist);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getData()
+  }, []);
 
   return (
     <>
@@ -117,7 +144,24 @@ export default function Home() {
       </section>
 
       <section className="mt-20 px-[3%]">
-        <Pelayanan/>
+        <Pelayanan />
+      </section>
+
+      <section className="mt-20 px-[3%]">
+        <HeaderHomepage
+          subhead="Pusat Informasi terbaru RSUD Sekayu"
+          header="Berita"
+        />
+
+        <div className="mt-10 grid grid-cols-2 gap-10">
+          {news.map((berita) => (
+            <CardBerita key={berita.id} title={berita.title} desc= {berita.desc} body={berita.body} />
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-20">
+        <HeaderHomepage subhead="Get in Touch" header="Kontak Kami" />
       </section>
     </>
   );
