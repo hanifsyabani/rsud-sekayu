@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="">
+    <nav className="fixed w-full z-10">
       <div className="flex bg-white justify-between items-center px-[5%] py-3">
         <Image
           src={"/logo.png"}

@@ -5,13 +5,15 @@ export default function CardBerita({
   title,
   desc,
   body,
+  date,
 }: {
   title: string;
   desc: string;
   body: string;
+  date: string;
 }) {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4 mt-10 pb-10">
       <Image
         src={img}
         width={300}
@@ -21,14 +23,22 @@ export default function CardBerita({
       />
       <div>
         <p className="text-secondary text-sm">
-          Minggu, 12 Agustus 2004 | Pemerintah Kab. Musi Banyuasin
+          {date} | Pemerintah Kab. Musi Banyuasin
         </p>
         <h1 className="font-semibold mb-3">
-          {title}
+          {title
+            ? title.length > 60
+              ? title.slice(0, 60) + "..."
+              : title
+            : "No Title"}
         </h1>
 
         <p className="text-sm">
-          {desc}  
+          {desc
+            ? desc.length > 100
+              ? desc.slice(0, 100) + "..."
+              : desc
+            : "No Description"}
         </p>
       </div>
     </div>

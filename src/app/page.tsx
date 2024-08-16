@@ -14,9 +14,19 @@ import CardBerita from "@/components/Berita/CardBerita";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/service/firebase";
+import { layananDaftarOnline } from "@/utils/Homepage/Pelayanan";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
+import Link from "next/link";
+
+import "swiper/css";
+import "swiper/css/pagination";
 
 export default function Home() {
   const [news, setNews] = useState<any[]>([]);
+
+  // Import Swiper styles
 
   const renderIcon = (id: number) => {
     switch (id) {
@@ -58,7 +68,7 @@ export default function Home() {
       try {
         const newsSnapshop = await getDocs(getNews);
 
-        const newslist= newsSnapshop.docs.map((doc) => ({
+        const newslist = newsSnapshop.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
@@ -69,13 +79,13 @@ export default function Home() {
       }
     }
 
-    getData()
+    getData();
   }, []);
 
   return (
-    <>
+    <div className="pt-32">
       <section
-        className=" relative bg-center w-full h-[500px] bg-cover bg-no-repeat flex flex-col justify-center  items-center"
+        className=" relative bg-center w-full h-[500px] bg-cover bg-no-repeat flex flex-col justify-center  items-center "
         style={{ backgroundImage: `url(${rsudimg.src})` }}
       >
         <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -153,16 +163,67 @@ export default function Home() {
           header="Berita"
         />
 
-        <div className="mt-10 grid grid-cols-2 gap-10">
-          {news.map((berita) => (
-            <CardBerita key={berita.id} title={berita.title} desc= {berita.desc} body={berita.body} />
-          ))}
+        <Swiper
+          modules={[Autoplay, Pagination]}
+          autoplay={{ delay: 3000 }}
+          pagination={{ dynamicBullets: true}}
+          spaceBetween={30}
+          className="mySwiper"
+          slidesPerView={2}
+              
+        >
+          <div className="mt-10 grid grid-cols-2 gap-10">
+            {news.map((berita) => (
+              <SwiperSlide>
+                <CardBerita
+                  key={berita.id}
+                  title={berita.title}
+                  desc={berita.desc}
+                  body={berita.body}
+                  date={berita.createdAt}
+                />
+              </SwiperSlide>
+            ))}
+          </div>
+        </Swiper>
+
+        <div className="bg-primary text-center text-white rounded-full hover:bg-accent transition-all font-semibold  py-2 w-52 mx-auto cursor-pointer mt-8 text-sm hover:text-primary">
+          <button className="">Lihat Semua</button>
         </div>
       </section>
 
       <section className="mt-20">
-        <HeaderHomepage subhead="Get in Touch" header="Kontak Kami" />
+        <HeaderHomepage subhead="Layanan" header="Pendaftaran Online" />
+
+        <div className="flex justify-center items-center mt-10">
+          <div className="grid grid-cols-4 gap-8">
+            {layananDaftarOnline.map((layanan) => (
+              <div className="w-60 rounded-lg shadow-lg bg-accent transition-all hover:bg-primary cursor-pointer group ">
+                <Image
+                  src={layanan.img}
+                  width={300}
+                  height={300}
+                  alt="banners"
+                  className="w-52 h-32 p-3 mx-auto object-cover"
+                />
+                <div className="text-primary p-3 group-hover:text-accent ">
+                  <h1 className="font-bold ">{layanan.name}</h1>
+                  <p className="text-sm pt-3">{layanan.desc}</p>
+                </div>
+
+                <div className="p-2">
+                  <Link
+                    href={`${layanan.link}`}
+                    className="bg-white w-full py-2 hover:scale-105 transition-all flex justify-center rounded-full"
+                  >
+                    Daftar Sekarang
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
-    </>
+    </div>
   );
 }
