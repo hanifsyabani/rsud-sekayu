@@ -85,7 +85,7 @@ export default function Home() {
   return (
     <div className="pt-32">
       <section
-        className=" relative bg-center w-full h-[500px] bg-cover bg-no-repeat flex flex-col justify-center  items-center "
+        className=" relative bg-center w-full h-[500px] bg-cover bg-no-repeat flex flex-col justify-center items-center "
         style={{ backgroundImage: `url(${rsudimg.src})` }}
       >
         <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -166,11 +166,10 @@ export default function Home() {
         <Swiper
           modules={[Autoplay, Pagination]}
           autoplay={{ delay: 3000 }}
-          pagination={{ dynamicBullets: true}}
+          pagination={{ dynamicBullets: true }}
           spaceBetween={30}
           className="mySwiper"
           slidesPerView={2}
-              
         >
           <div className="mt-10 grid grid-cols-2 gap-10">
             {news.map((berita) => (

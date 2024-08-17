@@ -11,8 +11,8 @@ export const NavItem = [
   },
   {
     id: 3,
-    name: "Services",
-    link: "/services",
+    name: "Berita",
+    link: "/berita",
   },
   {
     id: 4,
