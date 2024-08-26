@@ -26,8 +26,6 @@ import "swiper/css/pagination";
 export default function Home() {
   const [news, setNews] = useState<any[]>([]);
 
-  // Import Swiper styles
-
   const renderIcon = (id: number) => {
     switch (id) {
       case 1:
