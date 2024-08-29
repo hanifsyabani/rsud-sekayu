@@ -5,13 +5,13 @@ import { getFirestore } from "firebase/firestore";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDMJfmjvHDHPJPpxowDAu_1TzpqQLdKY1Q",
-  authDomain: "rsud-7acc5.firebaseapp.com",
-  projectId: "rsud-7acc5",
-  storageBucket: "rsud-7acc5.appspot.com",
-  messagingSenderId: "147347665733",
-  appId: "1:147347665733:web:c12849c9eaa0b884f9042c",
-  measurementId: "G-H3TJFEXK8C"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);

@@ -133,7 +133,7 @@ export default function About() {
                     alt="docter"
                     width={300}
                     height={300}
-                    className="w-full h-["
+                    className="w-full"
                   />
                   <div className="text-center pt-4 pb-6">
                     <p className="text-primary mt-3">{docter.name}</p>
