@@ -7,9 +7,13 @@ import InfoEmergency from "./InfoEmergency";
 import { NavItem } from "@/utils/Navbar/NavItem";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { FaRegUser } from "react-icons/fa";
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
+  const [scrolled, setScrolled] = useState(false);
+
+  const path = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,7 +34,11 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className={`fixed w-full z-10 ${scrolled ? '-top-20': 'top-0'} transition-all`}>
+    <nav
+      className={`fixed w-full z-10 ${
+        scrolled ? "-top-20" : "top-0"
+      } transition-all`}
+    >
       <div className="flex bg-white justify-between items-center px-[5%] py-3">
         <Image
           src={"/logo.png"}
@@ -58,14 +66,19 @@ export default function Navbar() {
               href={item.link}
               className="hover:text-accent transition-all"
             >
-              <li>{item.name}</li>
+              <li className={`${path === item.link ? "text-accent" : ""}`}>
+                {item.name}
+              </li>
             </Link>
           ))}
         </ul>
-        <div>
+        <div className="flex items-center gap-4">
           <button className="bg-accent px-7 py-1 rounded-full text-primary hover:bg-white hover:text-primary transition-all">
             Appointment
           </button>
+          <Link href={'/login'} className="bg-secondary p-2 rounded-full cursor-pointer">
+            <FaRegUser size={20} className="text-white" />
+          </Link>
         </div>
       </div>
     </nav>

@@ -31,17 +31,22 @@ export default function Berita() {
     getData();
   }, []);
   return (
-    <main className="pt-36">
-      <h1 className="text-center font-bold text-3xl text-primary">Berita</h1>
-      <div className="flex justify-center items-center gap-10 mt-10 flex-wrap">
-        {news.map((berita) => (
-          <CardNews
-            title={berita.title}
-            desc={berita.desc}
-            body={berita.body}
-            date={berita.date}
-          />
-        ))}
+    <main className="pt-36 px-[5%]">
+      <h1 className="text-center font-bold text-3xl text-primary mt-4">
+        Berita
+      </h1>
+      <div className="flex gap-4">
+        <div className="flex justify-center items-center gap-10 mt-10 w-[70%] flex-wrap">
+          {news.map((berita) => (
+            <CardNews
+              title={berita.title}
+              desc={berita.desc}
+              body={berita.body}
+              img={berita.img}
+            />
+          ))}
+        </div>
+        <div className="w-[30%]"></div>
       </div>
     </main>
   );
